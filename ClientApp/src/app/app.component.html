@@ -1,0 +1,13 @@
+<nav class="navbar fixed-top navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+	<div class="navbar-nav">
+		<a class="nav-item nav-link" (click)="logout()">Logout</a>
+	</div>
+</nav>
+<div id="body-image-div"></div>
+<div class='container-fluid main-container'>
+  <div class='row'>
+    <div class='col-sm-12 body-content'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

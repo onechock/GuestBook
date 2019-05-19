@@ -1,0 +1,51 @@
+#guestBook {
+}
+
+	#guestBook .title {
+		margin: 20px;
+		font-family: 'Vidaloka', serif;
+		color: white;
+	}
+	#guestBook .posts {
+		max-width: 600px;
+		min-height: 500px;
+		background: black;
+		margin: auto;
+		background: #192837db;
+		color: white;
+	}
+		#guestBook .posts .post {
+			padding: 5px 10px 15px 10px;
+			border-bottom: 2px solid #2c3e50;
+			margin-bottom: 10px;
+		}
+			#guestBook .posts .post .date {
+				color: #ddd;
+				font-style: italic;
+			}
+			#guestBook .posts .post .likes {
+				margin-right: 20px;
+			}
+			#guestBook .posts .post .profile-pic {
+				width: 90%;
+				max-width: 70px;
+				height: 100px;
+				margin-top: 5px;
+				background: url('/assets/images/no_image_placeholder.png');
+				background-size: contain;
+				background-position: center top;
+				background-repeat: no-repeat;
+			}
+
+	#guestBook .add-post {
+		font-size: 30px;
+		color: white;
+		background: #192837db;
+	}
+	#guestBook .posts .post .add-post a {
+		color: white;
+	}
+
+	#guestBook .posts .post .likes-div i {
+		cursor:pointer;
+	}

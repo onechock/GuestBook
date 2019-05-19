@@ -1,0 +1,95 @@
+<div id="guestBook" class="container">
+	<div class="row">
+		<div class="col-12 text-center">
+			<h1 class="title">GUESTBOOK</h1>
+
+			<div class="float-right d-block d-sm-none">
+				<a href="#addPostModal" data-toggle="modal" data-target="#addPostModal" title="Add a post" class="btn btn-secondary" role="button">
+					<i class="far fa-comment-alt"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+	<div class="row no-gutters">
+		<div class="col-xs-11 col-sm-11 col-md-11 offset-lg-3 col-lg-6">
+			<div class="posts">
+
+				<div *ngIf="!posts" class="post row no-gutters">
+					<p class="col-12"><em>Loading...</em></p>
+				</div>
+				<div *ngIf="posts">
+					<div *ngIf="!posts.length">
+						<div class="post row no-gutters">
+							<i class="col-12">There are no messages in this guest book. Be the first to add one!</i>
+						</div>
+					</div>
+					<div class="post row no-gutters" *ngFor="let post of posts">
+						<!--
+							<div class="col-2">
+								<div class="profile-pic">
+									&nbsp;
+								</div>
+							</div>
+						-->
+						<div class="col-12">
+							<div class="float-right likes-div">
+								<span class="likes">{{ post.likes.length }} likes</span>
+								<span class="heart" *ngIf="!post.isOwner">
+									<i *ngIf="!post.liked" (click)="likePost(post)" class="far fa-heart" title="Like!"></i>
+									<i *ngIf="post.liked" (click)="likePost(post)" class="fas fa-heart" title="Unlike..."></i>
+								</span>
+
+								<span class="edit" *ngIf="post.isOwner">
+									<i (click)="editPost(post)" class="fas fa-edit" title="Edit your post"></i>
+								</span>
+							</div>
+							<b>{{ post.publisher }} </b><i>says:</i><br />
+							<small class="date">{{ post.date | date:'medium' }}</small>  <br />
+							{{ post.text }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-1 d-none d-sm-block text-center" *ngIf="currentUser">
+			<a href="#addPostModal" data-toggle="modal" data-target="#addPostModal" title="Add a post" class="btn btn-secondary" role="button">
+				<i class="far fa-comment-alt"></i>
+			</a>
+			<a href="#editPostModal" id="editPostModalOpen" data-toggle="modal" data-target="#editPostModal" class="btn btn-secondary d-none" role="button">
+				<i class="far fa-comment-alt"></i>
+			</a>
+		</div>
+	</div>
+
+	<app-add-post></app-add-post>
+
+	<div id="editPostModal" class="modal" tabindex="-1" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h5 class="modal-title">Edit post</h5>
+					<button type="button" id="editPostModalClose" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+					<div class="modal-body">
+						<div class="form-group">
+							<label for="text">Message</label>
+							<textarea type="text" formControlName="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+							<div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+								<div *ngIf="f.text.errors.required">You cant leave a empty message</div>
+								<div *ngIf="f.text.errors.minlength">Need atleast 30 characters</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger float-left" (click)="deletePost()">Delete</button>
+						<button type="submit" class="btn btn-dark">Edit</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

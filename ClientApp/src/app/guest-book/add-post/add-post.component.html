@@ -1,0 +1,28 @@
+<div id="addPostModal" class="modal" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h5 class="modal-title">New post</h5>
+				<button type="button" id="addPostModalClose" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+				<div class="modal-body">
+					<div class="form-group">
+						<label for="text">Message</label>
+						<textarea type="text" formControlName="text" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.text.errors }"></textarea>
+						<div *ngIf="submitted && f.text.errors" class="invalid-feedback">
+							<div *ngIf="f.text.errors.required">You cant leave a empty message</div>
+							<div *ngIf="f.text.errors.minlength">Need atleast 30 characters</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-dark">Publish</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
