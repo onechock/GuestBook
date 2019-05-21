@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace GuestBookCodeCase
+namespace GuestBookTestProject
 {
 	public class Program
 	{

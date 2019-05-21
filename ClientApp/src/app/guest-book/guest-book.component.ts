@@ -133,4 +133,8 @@ export class GuestBookComponent implements OnInit {
 	hideModal(): void {
 		document.getElementById('editPostModalClose').click();
 	}
+
+	clearForm(): void {
+		this.editForm.reset();
+	}
 }

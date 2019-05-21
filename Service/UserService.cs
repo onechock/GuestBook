@@ -1,5 +1,4 @@
-﻿using GuestBookCodeCase.Helpers;
-using GuestBookCodeCase.Models;
+﻿using GuestBookCodeCase.Models;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -23,11 +22,9 @@ namespace GuestBookCodeCase.Service
 	public class UserService : IUserService
 	{
 		private readonly IDataBaseService _dataBaseService;
-		private readonly AppSettings _appSettings;
 
-		public UserService(IOptions<AppSettings> appSettings, IDataBaseService dataBaseService)
+		public UserService(IDataBaseService dataBaseService)
 		{
-			_appSettings = appSettings.Value;
 			_dataBaseService = dataBaseService;
 		}
 
@@ -41,7 +38,7 @@ namespace GuestBookCodeCase.Service
 
 			// authentication successful so generate jwt token
 			var tokenHandler = new JwtSecurityTokenHandler();
-			var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+			var key = Encoding.ASCII.GetBytes("guestbooksecret@1337");
 			var tokenDescriptor = new SecurityTokenDescriptor
 			{
 				Subject = new ClaimsIdentity(new Claim[]

@@ -29,7 +29,7 @@ export class AuthenticationService {
 					this.currentUserSubject.next(response.user);
                 }
 
-                return response.user;
+				return response ? response : response.user;
             }));
     }
 

@@ -1,3 +1,5 @@
+using GuestBookCodeCase.Service;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,18 +7,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using IdentityServer4.Models;
-using System.Security.Claims;
-using System.Collections.Generic;
-using IdentityServer4.Test;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using GuestBookCodeCase.Helpers;
-using GuestBookCodeCase.Service;
 
-namespace GuestBookCodeCase
+namespace GuestBookTestProject
 {
 	public class Startup
 	{
@@ -30,33 +24,24 @@ namespace GuestBookCodeCase
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-					   
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
 			{
 				configuration.RootPath = "ClientApp/dist";
 			});
 
-			var appSettingsSection = Configuration.GetSection("AppSettings");
-			services.Configure<AppSettings>(appSettingsSection);
-
-			// configure jwt authentication
-			var appSettings = appSettingsSection.Get<AppSettings>();
-
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 			.AddJwtBearer(options =>
 			{
 				options.TokenValidationParameters = new TokenValidationParameters
 				{
-					ValidateIssuer = false,//true,
-					ValidateAudience = false,//true,
+					ValidateIssuer = false,
+					ValidateAudience = false,
 					ValidateLifetime = true,
 					ValidateIssuerSigningKey = true,
-
-					//ValidIssuer = "http://localhost:5000",
-					//ValidAudience = "http://localhost:5000",
-					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.Secret))
+					IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("guestbooksecret@1337"))
 				};
 			});
 
@@ -86,11 +71,8 @@ namespace GuestBookCodeCase
 				app.UseHsts();
 			}
 
-
 			app.UseAuthentication();
-
 			app.UseCors("EnableCORS");
-
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
@@ -105,6 +87,9 @@ namespace GuestBookCodeCase
 
 			app.UseSpa(spa =>
 			{
+				// To learn more about options for serving an Angular SPA from ASP.NET Core,
+				// see https://go.microsoft.com/fwlink/?linkid=864501
+
 				spa.Options.SourcePath = "ClientApp";
 
 				if (env.IsDevelopment())

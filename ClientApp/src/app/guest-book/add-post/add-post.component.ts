@@ -37,7 +37,7 @@ export class AddPostComponent implements OnInit {
 	newAddForm() {
 		this.addForm = this.formBuilder.group({
 			id: 0,
-			text: ['', [Validators.required, Validators.minLength(30)]],
+			text: '',
 			user: this.currentUser
 		});
 	}
@@ -58,7 +58,7 @@ export class AddPostComponent implements OnInit {
 					let post: Post = data.post;
 					this.alertService.success('Message added', true);
 					this.hideModal();
-					this.newAddForm();
+					this.addForm.reset();
 					this.guestBook.addPost(post);
 				},
 				error => {
@@ -71,4 +71,7 @@ export class AddPostComponent implements OnInit {
 		document.getElementById('addPostModalClose').click();
 	}
 
+	clearForm(): void {
+		this.addForm.reset();
+	}
 }

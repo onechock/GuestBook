@@ -44,7 +44,7 @@
 								</span>
 							</div>
 							<b>{{ post.publisher }} </b><i>says:</i><br />
-							<small class="date">{{ post.date | date:'medium' }}</small>  <br />
+							<small class="date">{{ post.date | date:'MMM d, y, h:mm a' }}</small>  <br />
 							{{ post.text }}
 						</div>
 					</div>
@@ -69,7 +69,7 @@
 
 				<div class="modal-header">
 					<h5 class="modal-title">Edit post</h5>
-					<button type="button" id="editPostModalClose" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" id="editPostModalClose" class="close" data-dismiss="modal" aria-label="Close" (click)="clearForm()">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>

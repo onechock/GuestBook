@@ -23,7 +23,6 @@ namespace GuestBookCodeCase.Models
 
 		public int Id { get; set; }
 		public DateTime Date { get; set; }
-		public string DateFormatted { get { return Date.ToString("ddd, dd MMM yyy HH:mm"); } }
 		public int UserId { get; set; }
 		public string Publisher { get; set; }
 		public string Text { get; set; }
