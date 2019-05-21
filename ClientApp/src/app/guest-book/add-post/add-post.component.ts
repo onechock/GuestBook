@@ -37,7 +37,7 @@ export class AddPostComponent implements OnInit {
 	newAddForm() {
 		this.addForm = this.formBuilder.group({
 			id: 0,
-			text: '',
+			text: ['', [Validators.required, Validators.minLength(30)]],
 			user: this.currentUser
 		});
 	}
@@ -59,6 +59,7 @@ export class AddPostComponent implements OnInit {
 					this.alertService.success('Message added', true);
 					this.hideModal();
 					this.addForm.reset();
+					this.newAddForm()
 					this.guestBook.addPost(post);
 				},
 				error => {
